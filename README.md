@@ -15,11 +15,9 @@
 
 ### Section 1: Introduction
 
-This project draws significant inspiration from **bokoko33**'s website. Working on this endeavor allowed me to explore various facets of Three.js and Blender, becoming more proficient in both. The outcome achieved closely resembles the original website, with some touch of my own.
 
-This project is live [here](https://oscar-threejs.vercel.app/)
+This project is live [here]()
 
-Check out Bokoko33's original website [here](https://bokoko33.me/)
 
 ---
 
@@ -75,15 +73,5 @@ What made this project truly exciting was the introduction to new concepts such 
 
 #### 4.2 Next Step...
 
-Looking ahead, I am eager to further immerse myself in these technologies, honing my skills to produce intricate and mesmerizing patterns and animations. This project drew inspiration from Bokoko33's website design, and with the knowledge gained from its creation, I aspire to craft even more remarkable and awe-inspiring websites in the future.
+Looking ahead, I am eager to further immerse myself in these technologies, honing my skills to produce intricate and mesmerizing patterns and animations. I aspire to craft even more remarkable and awe-inspiring websites in the future.
 
----
-
-### Acknowledgements
-
-Credits to **Bokoko33**'s original website which I drew much inspiration from.  
-Bokoko's Website: [https://bokoko33.me/](https://bokoko33.me/)  
-Bokoko's Twitter: [https://twitter.com/bokoko33](https://twitter.com/bokoko33)
-
-Also credits to **Andrew Woan** for his amasing tutorials on Three.js and gsap timelines.  
-Andrew Woan's Youtube: [https://www.youtube.com/@andrewwoan](https://www.youtube.com/@andrewwoan)
