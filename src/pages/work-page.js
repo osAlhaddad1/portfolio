@@ -58,5 +58,5 @@ class WorkPage extends LitElement {
   }
 }
 
-customElements.define('ilithya-work', WorkPage);
+customElements.define('osami-work', WorkPage);
 

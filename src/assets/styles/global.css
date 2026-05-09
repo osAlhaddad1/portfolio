@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────
    global.css — single stylesheet for all pages
-   Depends on CSS custom properties; JS (ilithya-app)
+   Depends on CSS custom properties; JS (osami-app)
    fills in the colour values from config/scene.js.
 ───────────────────────────────────────────── */
 
@@ -97,14 +97,14 @@ body::before {
 }
 
 /* ── Make Lit wrappers invisible to layout ── */
-ilithya-app,
-ilithya-home,
-ilithya-about,
-ilithya-work,
-ilithya-project,
-ilithya-writing,
-ilithya-guestbook,
-ilithya-guestbook-success { display: contents; }
+osami-app,
+osami-home,
+osami-about,
+osami-work,
+osami-project,
+osami-writing,
+osami-guestbook,
+osami-guestbook-success { display: contents; }
 
 /* ── Home — full-viewport canvas ── */
 .u-fixed-cnt {
@@ -785,7 +785,7 @@ canvas {
   }
 }
 
-/* ── Inner-page body mode (set by ilithya-app) ── */
+/* ── Inner-page body mode (set by osami-app) ── */
 body.is-inner {
   --dot-opacity: 0.35;
   height: auto;
@@ -803,7 +803,7 @@ body.is-inner {
   /* Let the nav custom element participate in normal flow so its
      children can sit at the top of the page instead of being
      anchored to the middle-right of the viewport. */
-  ilithya-nav { display: contents; }
+  osami-nav { display: contents; }
 
   /* Top nav bar — horizontal links on the left, sign-language logo on the right */
   .c-header {

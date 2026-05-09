@@ -10,7 +10,7 @@ export const pageFooter = () => html`
       <span class="c-footer__nav__item"><a href="#">Imprint</a></span>
       <span class="c-footer__nav__item"><a href="#">RSS</a></span>
     </nav>
-    <p>All rights reserved. By ilithya © 2026.<br>Made with ♥ Lit.</p>
+    <p>All rights reserved. By Osami © 2026.<br>Made with ♥ Lit.</p>
   </footer>
 `;
 

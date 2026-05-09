@@ -17,13 +17,13 @@ The router lives in `src/services/router/hash-router.js`:
 
 | Hash                       | Route key            | Component                       |
 |----------------------------|----------------------|---------------------------------|
-| `/` or `#`                 | `''`                 | `<ilithya-home>`                |
-| `#/about`                  | `about`              | `<ilithya-about>`               |
-| `#/work`                   | `work`               | `<ilithya-work>`                |
-| `#/work/<slug>`            | `work/<slug>`        | `<ilithya-project slug=...>`    |
-| `#/writing`                | `writing`            | `<ilithya-writing>`             |
-| `#/guestbook`              | `guestbook`          | `<ilithya-guestbook>`           |
-| `#/guestbook/success`      | `guestbook/success`  | `<ilithya-guestbook-success>`   |
+| `/` or `#`                 | `''`                 | `<osami-home>`                |
+| `#/about`                  | `about`              | `<osami-about>`               |
+| `#/work`                   | `work`               | `<osami-work>`                |
+| `#/work/<slug>`            | `work/<slug>`        | `<osami-project slug=...>`    |
+| `#/writing`                | `writing`            | `<osami-writing>`             |
+| `#/guestbook`              | `guestbook`          | `<osami-guestbook>`           |
+| `#/guestbook/success`      | `guestbook/success`  | `<osami-guestbook-success>`   |
 
 Unknown route keys fall through to the home page.
 
@@ -38,7 +38,7 @@ Defined in `app-nav.js` as `NAV_PAGES`:
 | My Story   | `#/writing`    | `writing`   |
 | Guestbook  | `#/guestbook`  | `guestbook` |
 
-The `ilithya` logo also links to `#` (home).
+The `osami` logo also links to `#` (home).
 
 ## Project slugs
 
@@ -49,4 +49,4 @@ Defined in `src/services/content/projects-service.js`:
 - `apple-liquid-glass`
 - `ledger-system`
 
-Linked from `<ilithya-work>` tiles. Unknown slugs render a "Project not found." fallback.
+Linked from `<osami-work>` tiles. Unknown slugs render a "Project not found." fallback.

@@ -1,10 +1,10 @@
 export const ROUTES = {
-  '': 'ilithya-home',
-  about: 'ilithya-about',
-  work: 'ilithya-work',
-  writing: 'ilithya-writing',
-  guestbook: 'ilithya-guestbook',
-  'guestbook/success': 'ilithya-guestbook-success',
+  '': 'osami-home',
+  about: 'osami-about',
+  work: 'osami-work',
+  writing: 'osami-writing',
+  guestbook: 'osami-guestbook',
+  'guestbook/success': 'osami-guestbook-success',
 };
 
 export function hashToRouteKey(hash = window.location.hash) {

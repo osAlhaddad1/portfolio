@@ -165,5 +165,5 @@ class GuestbookPage extends LitElement {
   }
 }
 
-customElements.define('ilithya-guestbook', GuestbookPage);
+customElements.define('osami-guestbook', GuestbookPage);
 

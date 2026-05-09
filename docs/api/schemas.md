@@ -45,7 +45,7 @@ type JournalEntry = {
 
 ## Theme key
 
-Persisted in `localStorage['ilithya-theme']` and reflected on `body[data-theme]`. The empty string represents the default (blue).
+Persisted in `localStorage['osami-theme']` and reflected on `body[data-theme]`. The empty string represents the default (blue).
 
 ```ts
 type ThemeKey = 'blue' | 'purple' | 'hotpink' | 'black';

@@ -4,37 +4,37 @@
 
 ## Web components
 
-### `<ilithya-app>` — `src/app/app-shell.js`
+### `<osami-app>` — `src/app/app-shell.js`
 Root shell. Listens to `hashchange`, picks which page component to render, toggles `body.is-home` / `body.is-inner`, and bootstraps theme + scene CSS variables on first import.
 - **State:** `_route` (current route key string).
 
-### `<ilithya-nav>` — `src/components/navigation/app-nav.js`
+### `<osami-nav>` — `src/components/navigation/app-nav.js`
 Primary header nav (About, Work, My Story, Guestbook) plus the theme color picker (Blue, Purple, Hotpink, Black). Reads/writes the active theme via `theme-service`.
 - **Props:** `activePage` (string) — the nav key to mark `aria-current="page"`.
 - **State:** `_activeTheme`.
 
-### `<ilithya-home>` — `src/pages/home-page.js`
+### `<osami-home>` — `src/pages/home-page.js`
 Landing page. Boots a Three.js scene of ~405 floating shapes plus an extruded "happy &lt;day&gt;" greeting. Lerps the camera toward the mouse and adjusts FOV.
 - **Lifecycle:** Initializes the scene in `firstUpdated`; tears down RAF, renderer, and listeners in `disconnectedCallback`.
 
-### `<ilithya-about>` — `src/pages/about-page.js`
+### `<osami-about>` — `src/pages/about-page.js`
 Static about page (bio, press list, social links).
 
-### `<ilithya-work>` — `src/pages/work-page.js`
+### `<osami-work>` — `src/pages/work-page.js`
 Project gallery. Reads `PROJECTS` from `projects-service` and renders one big tile + two small + one full-width.
 
-### `<ilithya-project slug>` — `src/pages/project-page.js`
+### `<osami-project slug>` — `src/pages/project-page.js`
 Single project detail page. Resolves the project via `getProject(slug)`; renders a "not found" view if the slug is unknown.
 - **Props:** `slug` (string) — passed by the shell when the route matches `work/<slug>`.
 
-### `<ilithya-writing>` — `src/pages/writing-page.js`
+### `<osami-writing>` — `src/pages/writing-page.js`
 Static journal-style "my story" page. Entries are an inline constant in the file.
 
-### `<ilithya-guestbook>` — `src/pages/guestbook/guestbook-page.js`
+### `<osami-guestbook>` — `src/pages/guestbook/guestbook-page.js`
 Guestbook form (textarea, mood emoji slider, nickname, optional URL) with a "pimp your console" panel for live bg/text color customization. Submitting routes to `#/guestbook/success` — **the form data is not sent anywhere** (no backend).
 - **State:** `_moodIdx`, `_bgColor`, `_textColor`.
 
-### `<ilithya-guestbook-success>` — `src/pages/guestbook/guestbook-success-page.js`
+### `<osami-guestbook-success>` — `src/pages/guestbook/guestbook-success-page.js`
 Static thank-you confirmation with a back link.
 
 ## Template fragments
@@ -45,5 +45,5 @@ Returns a `<footer>` Lit template with a "top ▲" scroll-to-top button and Impr
 ## Conventions
 
 - All components opt out of Shadow DOM (`createRenderRoot() { return this; }`) so `global.css` selectors apply.
-- All custom-element tag names are prefixed `ilithya-`.
+- All custom-element tag names are prefixed `osami-`.
 - Components import their dependencies (no global registration list).

@@ -12,7 +12,7 @@ For the documented client-side services that play a service-shaped role:
 |---|---|---|
 | Projects content service | `src/services/content/projects-service.js` | Owns the `PROJECTS` array; exposes `getProject(slug)`. |
 | Hash router | `src/services/router/hash-router.js` | Translates `window.location.hash` to route keys; computes the active nav tab. |
-| Theme service | `src/services/theme/theme-service.js` | Reads/writes `localStorage['ilithya-theme']`; mutates `body[data-theme]`. |
+| Theme service | `src/services/theme/theme-service.js` | Reads/writes `localStorage['osami-theme']`; mutates `body[data-theme]`. |
 | CSS vars service | `src/services/theme/css-vars-service.js` | Writes the theme palette from `SCENE_CONFIG` onto `:root`. |
 | Three scene service | `src/services/three/scene-service.js` | Builds renderer, scene, camera, env map, lighting, text material. |
 | Floaters service | `src/services/three/floaters-service.js` | `buildFloaters()` populates the home scene with random meshes. |

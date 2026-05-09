@@ -35,5 +35,5 @@ class GuestbookSuccessPage extends LitElement {
   }
 }
 
-customElements.define('ilithya-guestbook-success', GuestbookSuccessPage);
+customElements.define('osami-guestbook-success', GuestbookSuccessPage);
 

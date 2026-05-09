@@ -13,25 +13,25 @@ No store. Each component owns its own state via Lit's reactive properties (`stat
 
 | Component                         | State property      | Purpose                                  |
 |-----------------------------------|---------------------|------------------------------------------|
-| `<ilithya-app>`                   | `_route`            | Current route key; updated on `hashchange`. |
-| `<ilithya-nav>`                   | `_activeTheme`      | Currently selected theme key.            |
-| `<ilithya-guestbook>`             | `_moodIdx`          | Index into the `MOODS` emoji array.      |
-| `<ilithya-guestbook>`             | `_bgColor`          | Console background color (hex).          |
-| `<ilithya-guestbook>`             | `_textColor`        | Console text color (hex).                |
-| `<ilithya-project>`               | `slug`              | Reactive **prop** set by the shell.      |
-| `<ilithya-home>` (instance vars)  | `_renderer`, `_rafId`, `_onMouseMove`, `_onResize` | Three.js handles + listeners for cleanup. Not reactive. |
+| `<osami-app>`                   | `_route`            | Current route key; updated on `hashchange`. |
+| `<osami-nav>`                   | `_activeTheme`      | Currently selected theme key.            |
+| `<osami-guestbook>`             | `_moodIdx`          | Index into the `MOODS` emoji array.      |
+| `<osami-guestbook>`             | `_bgColor`          | Console background color (hex).          |
+| `<osami-guestbook>`             | `_textColor`        | Console text color (hex).                |
+| `<osami-project>`               | `slug`              | Reactive **prop** set by the shell.      |
+| `<osami-home>` (instance vars)  | `_renderer`, `_rafId`, `_onMouseMove`, `_onResize` | Three.js handles + listeners for cleanup. Not reactive. |
 
 ## Persistent state
 
 | Key             | Where                | Values                                       |
 |-----------------|----------------------|----------------------------------------------|
-| `ilithya-theme` | `localStorage`       | `''` (blue, default) / `purple` / `hotpink` / `black` |
+| `osami-theme` | `localStorage`       | `''` (blue, default) / `purple` / `hotpink` / `black` |
 
 `theme-service.js` is the only writer. `''` is stored for the default "blue" theme so the body attribute matches the bare `body[data-theme='']` default styling.
 
 ## Body class state (DOM-as-state)
 
-Set by `<ilithya-app>.updated()`:
+Set by `<osami-app>.updated()`:
 - `body.is-home` — when the home page is active.
 - `body.is-inner` — when any non-home page is active.
 

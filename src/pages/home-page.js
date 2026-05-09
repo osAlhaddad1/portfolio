@@ -86,5 +86,5 @@ class HomePage extends LitElement {
   }
 }
 
-customElements.define('ilithya-home', HomePage);
+customElements.define('osami-home', HomePage);
 

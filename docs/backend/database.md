@@ -8,4 +8,4 @@ The only persistence is browser `localStorage`:
 
 | Key             | Value                                | Writer                  |
 |-----------------|--------------------------------------|-------------------------|
-| `ilithya-theme` | `''` / `purple` / `hotpink` / `black` | `services/theme/theme-service.js` |
+| `osami-theme` | `''` / `purple` / `hotpink` / `black` | `services/theme/theme-service.js` |

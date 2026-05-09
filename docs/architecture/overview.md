@@ -4,20 +4,20 @@
 
 ## Shape
 
-A single-page static site. No build step, no bundler, no server-side rendering. The browser loads `index.html`, which mounts a single root web component (`<ilithya-app>`); routing happens via `hashchange` on the same page.
+A single-page static site. No build step, no bundler, no server-side rendering. The browser loads `index.html`, which mounts a single root web component (`<osami-app>`); routing happens via `hashchange` on the same page.
 
 ```
 index.html
-  └─ <ilithya-app>          (src/app/app-shell.js)
-       ├─ <ilithya-nav>     (src/components/navigation/app-nav.js)
+  └─ <osami-app>          (src/app/app-shell.js)
+       ├─ <osami-nav>     (src/components/navigation/app-nav.js)
        └─ one of:
-            <ilithya-home>          (Three.js canvas scene)
-            <ilithya-about>
-            <ilithya-work>          (project tile grid)
-            <ilithya-project slug>  (single project detail)
-            <ilithya-writing>
-            <ilithya-guestbook>
-            <ilithya-guestbook-success>
+            <osami-home>          (Three.js canvas scene)
+            <osami-about>
+            <osami-work>          (project tile grid)
+            <osami-project slug>  (single project detail)
+            <osami-writing>
+            <osami-guestbook>
+            <osami-guestbook-success>
 ```
 
 ## Layers

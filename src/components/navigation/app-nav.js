@@ -39,7 +39,7 @@ class AppNav extends LitElement {
     return html`
       <header class="c-header">
         <a href="#" class="c-header__logo"
-           aria-label="ilithya [artist, technologist, and educator] - home">ilithya</a>
+           aria-label="Osami Alhaddad — home">osami</a>
         <nav class="c-nav" aria-label="Primary">
           <ul>
             ${NAV_PAGES.map((page) => html`
@@ -67,5 +67,5 @@ class AppNav extends LitElement {
   }
 }
 
-customElements.define('ilithya-nav', AppNav);
+customElements.define('osami-nav', AppNav);
 

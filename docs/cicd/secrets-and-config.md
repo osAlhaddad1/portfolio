@@ -16,7 +16,7 @@ The runtime SPA has no secrets and no environment variables — it's a public st
 |-------------------------------------|---------------------------------------------------------------------|
 | `src/utils/config/scene-config.js`  | `SCENE_CONFIG` — Three.js scene parameters and theme palette colors. |
 | `src/services/content/projects-service.js` | The `PROJECTS` catalog.                                       |
-| Browser `localStorage`              | Active theme key (`ilithya-theme`).                                 |
+| Browser `localStorage`              | Active theme key (`osami-theme`).                                 |
 | `package.json` `scripts`            | The two local-dev `serve` invocations.                              |
 
 If secrets are ever introduced (e.g., an API key for a guestbook backend), they must not be committed. Use the deploy host's secret manager and inject them at build time only — never check them into `src/`.

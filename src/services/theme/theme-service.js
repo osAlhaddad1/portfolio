@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'ilithya-theme';
+const STORAGE_KEY = 'osami-theme';
 
 const toAttributeValue = (themeKey) => (themeKey === 'blue' ? '' : themeKey);
 const toThemeKey = (attributeValue) => (attributeValue === '' ? 'blue' : attributeValue);

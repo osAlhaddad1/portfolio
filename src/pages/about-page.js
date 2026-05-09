@@ -63,4 +63,4 @@ class AboutPage extends LitElement {
   }
 }
 
-customElements.define('ilithya-about', AboutPage);
+customElements.define('osami-about', AboutPage);

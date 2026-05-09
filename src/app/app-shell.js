@@ -46,22 +46,22 @@ class AppShell extends LitElement {
   renderPage(routeKey) {
     if (routeKey.startsWith('work/')) {
       const slug = routeKey.slice(5);
-      return html`<ilithya-project slug=${slug}></ilithya-project>`;
+      return html`<osami-project slug=${slug}></osami-project>`;
     }
 
     switch (routeKey) {
       case 'about':
-        return html`<ilithya-about></ilithya-about>`;
+        return html`<osami-about></osami-about>`;
       case 'work':
-        return html`<ilithya-work></ilithya-work>`;
+        return html`<osami-work></osami-work>`;
       case 'writing':
-        return html`<ilithya-writing></ilithya-writing>`;
+        return html`<osami-writing></osami-writing>`;
       case 'guestbook':
-        return html`<ilithya-guestbook></ilithya-guestbook>`;
+        return html`<osami-guestbook></osami-guestbook>`;
       case 'guestbook/success':
-        return html`<ilithya-guestbook-success></ilithya-guestbook-success>`;
+        return html`<osami-guestbook-success></osami-guestbook-success>`;
       default:
-        return html`<ilithya-home></ilithya-home>`;
+        return html`<osami-home></osami-home>`;
     }
   }
 
@@ -70,11 +70,11 @@ class AppShell extends LitElement {
     const activePage = getActiveNavPage(routeKey);
 
     return html`
-      <ilithya-nav activePage=${activePage}></ilithya-nav>
+      <osami-nav activePage=${activePage}></osami-nav>
       ${this.renderPage(routeKey)}
     `;
   }
 }
 
-customElements.define('ilithya-app', AppShell);
+customElements.define('osami-app', AppShell);
 

@@ -75,5 +75,5 @@ class ProjectPage extends LitElement {
   }
 }
 
-customElements.define('ilithya-project', ProjectPage);
+customElements.define('osami-project', ProjectPage);
 

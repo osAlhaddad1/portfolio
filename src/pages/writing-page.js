@@ -130,4 +130,4 @@ class WritingPage extends LitElement {
   }
 }
 
-customElements.define('ilithya-writing', WritingPage);
+customElements.define('osami-writing', WritingPage);
