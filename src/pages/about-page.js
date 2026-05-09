@@ -18,8 +18,8 @@ class AboutPage extends LitElement {
           <div class="c-page__cnt">
             <h2 class="c-page__heading">About Me</h2>
 
-            <div class="c-placeholder-img" style="height:520px"
-                 data-caption="[ portrait placeholder ]"></div>
+            <div class="c-placeholder-img"
+                 style="height:520px; background:url('/src/assets/pics/Me/me.jpg') center/cover no-repeat"></div>
 
             <div class="c-page__cnt__wrapper">
               <p>
@@ -33,9 +33,6 @@ class AboutPage extends LitElement {
                 <a href="mailto:hello@example.com">hello@example.com</a>.
               </p>
             </div>
-
-            <div class="c-placeholder-img" style="height:480px"
-                 data-caption="[ live coding placeholder ]"></div>
 
             <h2 class="c-page__heading">Press</h2>
             <div class="c-page__cnt__wrapper">

@@ -4,10 +4,9 @@ export const PROJECTS = [
     title: 'WebGi Jewelry',
     type: 'Personal Project',
     category: 'WebGL',
-    thumb: 'linear-gradient(135deg, #1c1200 0%, #3a2500 50%, #120d00 100%)',
+    thumb: 'url("/src/assets/pics/jewelry/ring.png") center/cover no-repeat',
     images: [
-      { bg: 'linear-gradient(160deg,#1c1200,#3a2500,#120d00)', h: 480 },
-      { bg: 'linear-gradient(160deg,#221500,#2e1c00)', h: 320 },
+      { bg: 'url("/src/assets/pics/jewelry/ring.png") center/cover no-repeat', h: 480 },
     ],
     meta: [
       { label: 'Type', value: '3D product configurator' },
@@ -29,10 +28,10 @@ export const PROJECTS = [
     title: 'Three Graces',
     type: 'Personal Project',
     category: 'WebGL',
-    thumb: 'linear-gradient(135deg, #1a1510 0%, #2e2318 50%, #0f0d0a 100%)',
+    thumb: 'url("/src/assets/pics/three-graces/three%20graces.png") center/cover no-repeat',
     images: [
-      { bg: 'linear-gradient(160deg,#1a1510,#2e2318,#0f0d0a)', h: 480 },
-      { bg: 'linear-gradient(160deg,#1c170f,#251c12)', h: 320 },
+      { bg: 'url("/src/assets/pics/three-graces/three%20graces.png") center/cover no-repeat', h: 480, caption: '[ current — interactive 3D ]' },
+      { bg: 'url("/src/assets/pics/three-graces/old.png") center/cover no-repeat', h: 480, caption: '[ original museum site — static photography ]' },
     ],
     meta: [
       { label: 'Type', value: 'Interactive 3D web experience' },
@@ -54,10 +53,9 @@ export const PROJECTS = [
     title: 'Apple Liquid Glass',
     type: 'Personal Project',
     category: 'WebGL',
-    thumb: 'linear-gradient(135deg, #0a1628 0%, #1a2a4a 50%, #0d1f3c 100%)',
+    thumb: 'url("/src/assets/pics/apple%20glass/apple%20glass%20t.jpg") center/cover no-repeat',
     images: [
-      { bg: 'linear-gradient(160deg,#0a1628,#1a2a4a,#0d1f3c)', h: 480 },
-      { bg: 'linear-gradient(160deg,#0d1525,#162238)', h: 320 },
+      { bg: 'url("/src/assets/pics/apple%20glass/apple%20glass%20t.jpg") center/cover no-repeat', h: 480 },
     ],
     meta: [
       { label: 'Type', value: 'Interactive WebGL demo' },

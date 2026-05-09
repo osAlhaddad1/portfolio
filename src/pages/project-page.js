@@ -41,6 +41,7 @@ class ProjectPage extends LitElement {
 
             ${project.images.map((img) => html`
               <div class="c-placeholder-img"
+                   data-caption=${img.caption ?? ''}
                    style="height:${img.h}px; background:${img.bg}; max-width:100%; margin-right:1.5625rem">
               </div>
             `)}
