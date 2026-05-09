@@ -2,7 +2,13 @@
 
 **Purpose:** Env vars and secret management. (Names and locations only — never actual secret values.)
 
-**No secrets and no environment variables.** The site is a public static SPA with no backend, no API keys, and no third-party credentials in source.
+The runtime SPA has no secrets and no environment variables — it's a public static site with no backend or third-party credentials in source. The only secret is for the deploy pipeline.
+
+## GitHub Actions secrets
+
+| Name                                 | Used by                                            | Purpose                                              | Rotation                                                                                              |
+|--------------------------------------|----------------------------------------------------|------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| `AZURE_STATIC_WEB_APPS_API_TOKEN`    | `.github/workflows/azure-static-web-apps.yml`      | Authenticates the deploy step against Azure.         | `az staticwebapp secrets reset-api-key --name osami-portfolio --resource-group portfolio-rg`, then update the GitHub secret. |
 
 ## Configuration sources
 

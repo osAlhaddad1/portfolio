@@ -2,29 +2,52 @@
 
 **Purpose:** Deploy process and rollback procedure.
 
-**No deploy automation configured.** Procedure below is the manual baseline.
+Production hosting: **Azure Static Web Apps** (Free tier).
 
-## Files to ship
+| Resource              | Value                                                  |
+|-----------------------|--------------------------------------------------------|
+| Resource group        | `portfolio-rg`                                         |
+| Static Web App name   | `osami-portfolio`                                      |
+| Region                | West Europe                                            |
+| Default hostname      | `salmon-bush-0d5dc0b03.7.azurestaticapps.net`          |
 
-```
-index.html
-src/                   (excluding any test or scratch files)
-fonts/
-```
+## Automated deploy
 
-`node_modules/`, `package-lock.json`, and `package.json` are **not** required at runtime — `serve` is dev-only. The browser pulls Lit and three.js from jsDelivr at runtime via the importmap.
+Every push to `main` triggers `.github/workflows/azure-static-web-apps.yml`, which uploads the repo root to Azure. Pull requests get isolated preview URLs that are torn down on close. See [pipelines.md](pipelines.md).
 
-## Manual deploy
+What gets shipped: the entire repo root. `node_modules/`, `package.json`, and `package-lock.json` are uploaded but unused at runtime — `serve` is dev-only and the browser pulls Lit and three.js from jsDelivr at runtime via the importmap. To exclude dev files from the deploy, add a `staticwebapp.config.json` or `.swaignore`.
 
-1. Verify the site renders locally: `npm start` and visit `http://localhost:8000`.
+## Pre-merge checklist
+
+Before merging to `main`:
+
+1. Verify locally: `npm start` and visit `http://localhost:8000`.
 2. Click through every primary route — home, about, work (open at least one project), writing, guestbook (submit form to confirm success page).
 3. Toggle each theme in the picker; refresh to confirm `localStorage` persistence.
-4. Upload the files above to the static host of choice. Ensure the host serves `index.html` for the root path.
+4. If the PR has a preview URL (visible in the PR Checks/Comments), repeat the smoke test there.
 
 ## Rollback
 
-Re-deploy the previous set of files. Because the site has no build artifacts and no database, rollback is a pure file-replacement operation. Once a new git history is established, `git checkout <previous-sha>` followed by re-deploying is the canonical path.
+Two options, in order of preference:
+
+1. **Revert the commit on `main`** — `git revert <sha> && git push`. The workflow re-runs on the revert and Azure replaces the live content.
+2. **Re-run a previous successful workflow run** — in the GitHub Actions tab, open the green run that produced the desired state and click **Re-run all jobs**.
+
+There is no build artifact and no database, so rollback is a pure file-replacement operation.
+
+## Initial Azure setup (one-time, already done)
+
+Recorded for reference / disaster recovery:
+
+```bash
+az group create --name portfolio-rg --location westeurope
+az staticwebapp create --name osami-portfolio --resource-group portfolio-rg --location westeurope --sku Free
+az staticwebapp secrets list --name osami-portfolio --resource-group portfolio-rg --query "properties.apiKey" -o tsv
+# Add the printed token to GitHub as the AZURE_STATIC_WEB_APPS_API_TOKEN secret.
+```
+
+To rotate the deploy token: `az staticwebapp secrets reset-api-key --name osami-portfolio --resource-group portfolio-rg`, then re-fetch and update the GitHub secret.
 
 ## Caching
 
-If deploying behind a CDN, set short cache TTLs on `index.html` so importmap or script-tag changes propagate quickly. Source modules under `src/` may be cached aggressively if their filenames are stable (no hashing is applied today, so prefer short TTLs there too).
+Azure Static Web Apps applies sensible defaults. If custom caching is needed (e.g., shorter TTL on `index.html` so importmap or script-tag changes propagate quickly), add a `staticwebapp.config.json` at the repo root with route-level `headers`. Source modules under `src/` have stable filenames (no hashing), so prefer short TTLs there as well.
