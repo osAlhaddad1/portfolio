@@ -1,0 +1,913 @@
+/* ─────────────────────────────────────────────
+   global.css — single stylesheet for all pages
+   Depends on CSS custom properties; JS (ilithya-app)
+   fills in the colour values from config/scene.js.
+───────────────────────────────────────────── */
+
+/* ── Gallaudet font (sign-language glyphs) ── */
+@font-face {
+  font-family: 'gallaudetregular';
+  src: url('/fonts/gallaudetregular-webfont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ── CSS custom properties — defaults; JS overrides with CONFIG values ── */
+:root {
+  --c_blue_start:     rgb(17,  53,  208);
+  --c_blue_mid:       rgb(46,  111, 239);
+  --c_blue_end:       rgb(87,  87,  202);
+  --c_blue_picker:    rgb(46,  111, 239);
+  --c_purple_start:   rgb(111, 0,   224);
+  --c_purple_mid:     rgb(140, 50,  230);
+  --c_purple_end:     rgb(87,  110, 202);
+  --c_purple_picker:  rgb(137, 77,  215);
+  --c_hotpink_start:  rgb(220, 39,  132);
+  --c_hotpink_mid:    rgb(242, 85,  166);
+  --c_hotpink_end:    rgb(149, 80,  162);
+  --c_hotpink_picker: rgb(242, 85,  166);
+  --c_black_start:    rgb(20,  20,  20);
+  --c_black_mid:      rgb(45,  45,  55);
+  --c_black_end:      rgb(87,  75,  103);
+  --c_black_picker:   rgb(58,  58,  58);
+
+  /* active theme vars (default: blue) */
+  --c_theme_bg_start: var(--c_blue_start);
+  --c_theme_bg_mid:   var(--c_blue_mid);
+  --c_theme_bg_end:   var(--c_blue_end);
+
+  --c_text:            #e2e2e2;
+  --c_theme_nav_hover: #00ff21;
+  --c_theme_heading:   #1a1a1a;
+  --background-noise-opacity: 0.2;
+  /* Dot grid opacity — reduce on inner pages via body.is-inner override.
+     File: src/assets/styles/global.css, search for --dot-opacity */
+  --dot-opacity: 1;
+}
+
+[data-theme="purple"] {
+  --c_theme_bg_start: var(--c_purple_start);
+  --c_theme_bg_mid:   var(--c_purple_mid);
+  --c_theme_bg_end:   var(--c_purple_end);
+}
+[data-theme="hotpink"] {
+  --c_theme_bg_start: var(--c_hotpink_start);
+  --c_theme_bg_mid:   var(--c_hotpink_mid);
+  --c_theme_bg_end:   var(--c_hotpink_end);
+}
+[data-theme="black"] {
+  --c_theme_bg_start: var(--c_black_start);
+  --c_theme_bg_mid:   var(--c_black_mid);
+  --c_theme_bg_end:   var(--c_black_end);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+ul { list-style: none; }
+a  { text-decoration: none; color: inherit; }
+
+/* ── Base body — gradient background for every page ── */
+html, body { height: 100%; }
+body {
+  overflow: hidden;
+  font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', monospace;
+  color: var(--c_text);
+  background-color: var(--c_theme_bg_mid);
+  background-image:
+    radial-gradient(rgba(226,226,226,var(--dot-opacity)) 1px, transparent 0),
+    linear-gradient(to right, var(--c_theme_bg_start) 0%, var(--c_theme_bg_mid) 50%, var(--c_theme_bg_end) 100%);
+  background-size: 20px 20px, 100% 100%;
+  background-repeat: repeat, no-repeat;
+  background-attachment: scroll, fixed;
+  position: relative;
+  isolation: isolate;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--background-noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23grain)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 280px 280px;
+  background-repeat: repeat;
+  mix-blend-mode: soft-light;
+  filter: contrast(135%) brightness(115%);
+}
+
+/* ── Make Lit wrappers invisible to layout ── */
+ilithya-app,
+ilithya-home,
+ilithya-about,
+ilithya-work,
+ilithya-project,
+ilithya-writing,
+ilithya-guestbook,
+ilithya-guestbook-success { display: contents; }
+
+/* ── Home — full-viewport canvas ── */
+.u-fixed-cnt {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ──────────────────────────────────────────
+   Inner page layout
+───────────────────────────────────────── */
+
+.m-wrapper {
+  width: 100%;
+  align-self: flex-end;
+  position: relative;
+  z-index: 1;
+}
+@media (min-width: 59.375rem) {
+  .m-wrapper { width: 88%; }
+}
+
+/* ── Page hero header ── */
+.c-page__header {
+  background-color: rgb(226, 226, 226);
+  overflow: hidden;
+  position: relative;
+  height: 233px;
+}
+
+/* Gallaudet watermark — large, clipped by overflow:hidden */
+.c-page__title {
+  font-family: 'gallaudetregular', 'Courier New', monospace;
+  font-size: clamp(5rem, 21vw, 22rem);
+  color: rgb(241, 241, 241);
+  line-height: 0.9;
+  display: block;
+  padding-left: 1%;
+  margin-top: -0.4em;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Visible serif page title — absolute, bottom-left */
+.c-page__subtitle {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(3rem, 11.5vw, 12rem);
+  line-height: 0.9;
+  color: var(--c_theme_bg_mid);
+  position: absolute;
+  bottom: 0.4rem;
+  left: 1.3rem;
+  white-space: nowrap;
+}
+
+/* ── Terminal section headings ── */
+.c-page__heading {
+  display: block;
+  background-color: var(--c_theme_heading, #1a1a1a);
+  font-size: 1.3125rem;
+  line-height: 1.5;
+  width: 100%;
+  padding: 0.78rem 1.5625rem;
+  margin-bottom: 2.5rem;
+}
+.c-page__heading::before { content: ">_ "; }
+
+/* ── Scrollable content area ── */
+.c-page__cnt {
+  width: 100%;
+  min-height: calc(100vh - 365px);
+  font-size: 1.3125rem;
+}
+
+/*
+  Nav gutter: prevent headings and text from sliding under the fixed nav.
+  clamp(130px, 12vw, 180px) leaves enough room for the nav at any width.
+*/
+@media (min-width: 59.375rem) {
+  .c-page__cnt { padding-right: clamp(130px, 12vw, 180px); }
+}
+
+/* Text + list content column */
+.c-page__cnt__wrapper {
+  margin: 0 1.5rem 3.125rem;
+  max-width: 800px;
+}
+
+.c-page__cnt p { line-height: 1.77rem; }
+.c-page__cnt p + p           { margin-top: 3.125rem; }
+.c-page__cnt p + ul          { margin-top: 0.8rem; }
+.c-page__cnt ul + .c-page__heading { margin-top: 4.7rem; }
+
+.c-pre-block {
+  font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', monospace;
+  font-size: 0.75rem;
+  background-color: #080808;
+  color: var(--c_theme_nav_hover);
+  border: 1px solid rgba(226, 226, 226, 0.1);
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  line-height: 1.7;
+  margin-top: 3.125rem;
+  white-space: pre;
+}
+.c-pre-block + p { margin-top: 3.125rem; }
+
+.c-page__cnt em { font-style: italic; }
+.c-page__cnt a  { text-decoration: underline; }
+.c-page__cnt a:hover { color: var(--c_theme_nav_hover); }
+
+/* × bullet list items */
+.c-page__cnt li {
+  display: block;
+  line-height: 1.8;
+  padding-left: 1.44rem;
+  position: relative;
+}
+.c-page__cnt li::before {
+  content: "×";
+  position: absolute;
+  top: 2px;
+  left: 0;
+  color: var(--c_text);
+}
+.c-page__cnt li a { line-height: 1.8; }
+
+/* ── Placeholder image blocks ── */
+.c-placeholder-img {
+  display: block;
+  width: calc(100% - 1.5rem);   /* respects left margin */
+  max-width: 800px;
+  margin-left: 1.5rem;
+  margin-bottom: 3.125rem;
+  background-color: #111;
+  position: relative;
+  overflow: hidden;
+}
+.c-placeholder-img::after {
+  content: attr(data-caption);
+  display: block;
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  color: rgba(255,255,255,0.35);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+/* ── Footer ── */
+.c-footer {
+  width: 100%;
+  font-size: 0.8125rem;
+  padding: 1.5625rem;
+}
+.c-footer__nav { margin-bottom: 1.25rem; }
+.c-footer__nav__item {
+  display: inline-block;
+  line-height: 3;
+  margin-right: 1.25rem;
+}
+.c-footer__nav__item a:hover { color: var(--c_theme_nav_hover); }
+.c-footer p { line-height: 1.5; }
+
+.c-back-top {
+  display: inline-block;
+  background: none;
+  font-family: inherit;
+  color: inherit;
+  border: 1px solid var(--c_text);
+  padding: 0.15rem 0.55rem;
+  margin-bottom: 1rem;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+.c-back-top:hover {
+  color: var(--c_theme_nav_hover);
+  border-color: var(--c_theme_nav_hover);
+}
+
+/* ──────────────────────────────────────────
+   Nav — right-side fixed header
+───────────────────────────────────────── */
+.c-header {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-10%);
+  padding: 0 1.5625rem 1.375rem 0;
+  z-index: 60;
+  text-align: right;
+}
+
+.c-header__logo {
+  font-family: 'gallaudetregular', 'Courier New', monospace;
+  font-size: 3.75rem;
+  font-weight: 400;
+  color: var(--c_text);
+  line-height: 1;
+  letter-spacing: 2px;
+  display: block;
+  text-decoration: none;
+}
+.c-header__logo:hover {
+  color: var(--c_theme_nav_hover);
+  text-decoration: underline;
+}
+
+.c-nav { text-align: right; margin-top: 0.75rem; }
+.c-nav__item + .c-nav__item { margin-top: 0.8125rem; }
+
+.c-nav__item a {
+  display: inline-block;
+  color: var(--c_text);
+  font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', monospace;
+  font-size: 0.8125rem;
+  font-weight: bold;
+  line-height: 1.5;
+  text-transform: lowercase;
+  text-decoration: none;
+  border-bottom: 0.667px solid var(--c_text);
+  padding: 0;
+}
+.c-nav__item a:hover {
+  color: var(--c_theme_nav_hover);
+  border-bottom-color: var(--c_theme_nav_hover);
+}
+
+/* Active page: cream fill box */
+.c-nav__item a[aria-current="page"] {
+  background: rgb(226, 226, 226);
+  color: var(--c_theme_bg_end);
+  padding: 0 5px;
+  border-bottom: none;
+}
+.c-nav__item a[aria-current="page"]:hover {
+  background: rgb(226, 226, 226);
+  color: var(--c_theme_bg_end);
+  border-bottom: none;
+}
+
+/* ── Theme colour picker ── */
+.c-picker {
+  position: fixed;
+  top: 0.9375rem;
+  right: 1.5625rem;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  z-index: 60;
+}
+.c-picker__btn {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid rgb(226, 226, 226);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.c-picker__btn:hover { transform: scale(1.15); }
+.c-picker__btn.is-active {
+  width: 10px;
+  height: 10px;
+  outline: 2px solid rgb(226, 226, 226);
+  outline-offset: 2px;
+}
+.c-picker__btn--01 { background: var(--c_blue_picker); }
+.c-picker__btn--02 { background: var(--c_purple_picker); }
+.c-picker__btn--03 { background: var(--c_hotpink_picker); }
+.c-picker__btn--04 { background: var(--c_black_picker); }
+
+/* ──────────────────────────────────────────
+   Work grid — tile layout
+───────────────────────────────────────── */
+
+/* Flex row of tiles — matches the left margin of the page */
+.u-flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5625rem;
+  padding-left: 1.5625rem;
+  margin-bottom: 1.5625rem;
+}
+
+/* Stacked column of two small tiles */
+.u-flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5625rem;
+}
+
+/* Individual figure tile */
+.c-fig-tiles {
+  overflow: hidden;
+  position: relative;
+  display: block;
+  z-index: 30;
+}
+
+/* Big tile — occupies majority of the row */
+.c-work-big {
+  flex: 1 1 55%;
+  min-width: 260px;
+  display: block;
+}
+
+/* Column wrapper — two stacked tiles */
+.c-work-col {
+  flex: 1 1 35%;
+  min-width: 200px;
+}
+
+/* Gradient background div (replaces <img>) */
+.c-tile-bg {
+  display: block;
+  width: 100%;
+  transition: filter 0.3s ease-in-out;
+}
+
+/* Hover overlay — sits on top of the tile */
+.c-fig-desc {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(26, 26, 26, 0.7);
+  z-index: 1;
+  padding: 1rem;
+}
+
+/* Primary caption (project title) */
+.c-fig-caption {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.625rem;
+  color: var(--c_text);
+  text-align: center;
+  display: block;
+}
+
+/* Secondary caption (type · category) */
+.c-fig-type {
+  font-size: 0.8125rem;
+  color: var(--c_text);
+  text-align: center;
+  display: block;
+  margin-top: 0.4rem;
+  opacity: 0.7;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Hover: reveal overlay, blur tile */
+@media (hover: hover) {
+  .c-fig-desc {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  a:hover .c-fig-desc {
+    opacity: 1;
+  }
+  a:hover .c-tile-bg {
+    filter: blur(2px);
+  }
+}
+
+/* ──────────────────────────────────────────
+   Project detail page
+───────────────────────────────────────── */
+
+/* Back navigation link */
+.c-back-link {
+  display: inline-block;
+  margin: 0 1.5rem 3.125rem;
+  font-size: 0.8125rem;
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--c_text);
+}
+.c-back-link:hover { color: var(--c_theme_nav_hover); }
+
+/* Project metadata list — overrides the × bullet */
+.c-project-meta {
+  margin-bottom: 0;
+}
+.c-project-meta li {
+  display: flex;
+  gap: 1.5rem;
+  padding-left: 0;
+  line-height: 1.8;
+}
+.c-project-meta li::before {
+  content: none;
+}
+.c-project-meta__label {
+  opacity: 0.55;
+  min-width: 110px;
+  flex-shrink: 0;
+}
+
+/* ──────────────────────────────────────────
+   Writing — journal entries
+───────────────────────────────────────── */
+
+/* Tighter paragraph gap inside a journal entry */
+.c-journal p + p {
+  margin-top: 1.5rem;
+}
+
+/* ──────────────────────────────────────────
+   Guestbook — macOS-style terminal windows
+───────────────────────────────────────── */
+
+/* ── Reusable terminal window (form + entries) ── */
+.c-console {
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--c_console_bg, #1a1a1a);
+  color: var(--c_console_text, #00ff21);
+  font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', monospace;
+  max-width: 560px;
+}
+.c-console__header {
+  background: #2d2d2d;
+  padding: 0.5rem 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.c-console__dots {
+  display: flex;
+  gap: 0.4rem;
+}
+.c-console__dot {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.c-console__dot--red    { background: #ff5f57; }
+.c-console__dot--yellow { background: #ffbd2e; }
+.c-console__dot--green  { background: #28c93f; }
+.c-console__title {
+  font-size: 0.8125rem;
+  color: #ccc;
+  font-family: 'Courier New', Courier, monospace;
+}
+.c-console__body {
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── Form: prompt-style input lines ── */
+.c-form__line {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  width: 100%;
+}
+.c-form__prompt {
+  color: var(--c_console_text, #00ff21);
+  font-weight: bold;
+  flex-shrink: 0;
+  line-height: 1.6;
+}
+.c-form__input,
+.c-form__textarea {
+  background: transparent;
+  border: none;
+  color: var(--c_console_text, #00ff21);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  outline: none;
+  width: 100%;
+  padding: 0;
+  line-height: 1.6;
+  caret-color: var(--c_console_text, #00ff21);
+}
+.c-form__input::placeholder,
+.c-form__textarea::placeholder {
+  color: var(--c_console_text, #00ff21);
+  opacity: 0.85;
+}
+.c-form__textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* ── Mood slider ── */
+.c-form__mood {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 0.3rem 0;
+}
+.c-form__mood-emoji {
+  font-size: 1.75rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.c-form__mood-slider {
+  flex: 1;
+  max-width: 260px;
+  appearance: none;
+  -webkit-appearance: none;
+  height: 2px;
+  background: rgba(226, 226, 226, 0.4);
+  outline: none;
+  cursor: pointer;
+}
+.c-form__mood-slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #e2e2e2;
+  cursor: pointer;
+}
+.c-form__mood-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #e2e2e2;
+  cursor: pointer;
+  border: none;
+}
+
+/* ── "Pimp your console" — fieldset with floating label ── */
+.c-console-pimp {
+  border: 1px solid rgba(226, 226, 226, 0.4);
+  padding: 1.25rem 1.25rem 1rem;
+  margin: 0;
+  max-width: 560px;
+}
+.c-console-pimp__title {
+  padding: 0 0.5rem;
+  font-size: 0.875rem;
+  color: var(--c_text);
+  font-family: 'Courier New', Courier, monospace;
+}
+.c-console-pimp__controls {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.c-console-pimp__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.c-console-pimp__label {
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+.c-form__color {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(226, 226, 226, 0.3);
+  padding: 0;
+  cursor: pointer;
+  border-radius: 2px;
+  background: none;
+}
+.c-form__reset {
+  background: rgba(226, 226, 226, 0.1);
+  border: 1px solid rgba(226, 226, 226, 0.4);
+  border-radius: 2px;
+  color: var(--c_text);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.875rem;
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+  margin-left: auto;
+  transition: color 0.15s, border-color 0.15s;
+}
+.c-form__reset:hover {
+  color: var(--c_theme_nav_hover);
+  border-color: var(--c_theme_nav_hover);
+}
+
+.c-form__submit {
+  display: inline-block;
+  background: none;
+  font-family: inherit;
+  color: inherit;
+  border: 1px solid var(--c_text);
+  padding: 0.4rem 1.25rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  align-self: flex-start;
+  text-transform: lowercase;
+  transition: color 0.15s, border-color 0.15s;
+  margin-top: 1rem;
+}
+.c-form__submit:hover {
+  color: var(--c_theme_nav_hover);
+  border-color: var(--c_theme_nav_hover);
+}
+
+/* ── Guestbook entries — staggered terminal windows ── */
+.c-guestbook-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 1rem;
+}
+.c-guestbook-entry {
+  max-width: 58%;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--entry-bg, #1a1a1a);
+  color: var(--entry-fg, #00ff21);
+  font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', monospace;
+}
+/* Odd entries → left; even → right */
+.c-guestbook-entry:nth-child(odd)  { align-self: flex-start; }
+.c-guestbook-entry:nth-child(even) { align-self: flex-end; }
+
+.c-guestbook-entry__header {
+  background: #2d2d2d;
+  color: #ccc;
+  padding: 0.5rem 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.8125rem;
+}
+.c-guestbook-entry__body {
+  padding: 1.25rem 1.5rem;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+.c-guestbook-entry__msg {
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+  word-break: break-word;
+}
+.c-guestbook-entry__mood {
+  font-size: 1.5rem;
+  line-height: 1;
+  display: inline-block;
+  margin-bottom: 0.6rem;
+}
+.c-guestbook-entry__alias {
+  display: block;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+.c-guestbook-entry__link {
+  display: block;
+  margin-top: 0.3rem;
+  text-decoration: underline;
+  word-break: break-all;
+  color: inherit;
+}
+.c-guestbook-entry__link:hover { opacity: 0.75; }
+
+/* Smaller screens — stop staggering, full width */
+@media (max-width: 59.375rem) {
+  .c-guestbook-entry,
+  .c-guestbook-entry:nth-child(odd),
+  .c-guestbook-entry:nth-child(even) {
+    max-width: 100%;
+    align-self: stretch;
+  }
+}
+
+/* ── Inner-page body mode (set by ilithya-app) ── */
+body.is-inner {
+  --dot-opacity: 0.35;
+  height: auto;
+  min-height: 100%;
+  overflow: hidden scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ──────────────────────────────────────────
+   Responsive — mobile (phones, ≤ 767px)
+   Nav moves from fixed right-center to a top bar; content flows full width.
+───────────────────────────────────────── */
+@media (max-width: 47.9375rem) {
+  /* Let the nav custom element participate in normal flow so its
+     children can sit at the top of the page instead of being
+     anchored to the middle-right of the viewport. */
+  ilithya-nav { display: contents; }
+
+  /* Top nav bar — horizontal links on the left, sign-language logo on the right */
+  .c-header {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    text-align: left;
+    padding: 1.25rem 1.25rem 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 1rem;
+  }
+  .c-header__logo {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    justify-self: end;
+    align-self: start;
+    font-size: 3rem;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .c-nav {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: center;
+    text-align: left;
+    margin-top: 0;
+  }
+  .c-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.1rem;
+  }
+  .c-nav__item { display: inline-block; }
+  .c-nav__item + .c-nav__item { margin-top: 0; }
+  .c-nav__item a { font-size: 0.8125rem; line-height: 1.4; }
+
+  /* Theme picker — sit under the top nav, aligned right */
+  .c-picker {
+    position: relative;
+    top: auto;
+    right: auto;
+    padding: 0.25rem 1.25rem 0.9rem;
+    justify-content: flex-end;
+  }
+
+  /* Page hero — shorter so it doesn't eat the viewport */
+  .c-page__header { height: 150px; }
+  .c-page__subtitle { left: 1rem; bottom: 0.3rem; }
+
+  /* Inner page content — full width, no right gutter */
+  .c-page__cnt {
+    padding-right: 0;
+    font-size: 1rem;
+  }
+  .c-page__cnt__wrapper { margin: 0 1rem 2rem; }
+  .c-page__cnt p { line-height: 1.6rem; }
+  .c-page__cnt p + p { margin-top: 2rem; }
+
+  .c-page__heading {
+    font-size: 1rem;
+    padding: 0.65rem 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  /* Work grid — stack tiles full-width */
+  .u-flex-row {
+    gap: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 1rem;
+  }
+  .u-flex-col { gap: 1rem; }
+  .c-work-big,
+  .c-work-col {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+  .c-fig-caption { font-size: 1.25rem; }
+
+  /* Placeholder images respect tighter gutter */
+  .c-placeholder-img {
+    width: calc(100% - 1rem);
+    margin-left: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Footer + back link gutters */
+  .c-footer { padding: 1rem; }
+  .c-back-link { margin: 0 1rem 2rem; }
+
+  /* Project meta — stack label above value so long values fit */
+  .c-project-meta li {
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .c-project-meta__label { min-width: 0; }
+
+  /* Guestbook terminal windows — full width, trimmed padding */
+  .c-console { max-width: 100%; }
+  .c-console__body { padding: 1.25rem 1rem; gap: 1.25rem; }
+  .c-console-pimp { padding: 1rem 1rem 0.75rem; }
+  .c-console-pimp__controls { gap: 1.25rem; }
+  .c-guestbook-entry__body { padding: 1rem 1.1rem; font-size: 0.9375rem; }
+}

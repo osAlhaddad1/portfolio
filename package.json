@@ -1,0 +1,14 @@
+{
+  "name": "ilithya-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static Lit + Three.js SPA",
+  "scripts": {
+    "start": "serve . --listen 8000",
+    "start:spa": "serve . --listen 8000 --single"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}
+
